@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
+use App\Models\Type;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create_project');
+        $types = Type::all();
+        return view('admin.projects.create_project', compact('types'));
     }
 
     /**
@@ -54,6 +56,7 @@ class ProjectController extends Controller
         $project->mockup_image = $form_data['mockup_image'];
         $slug = Str::slug($project->title, '-');
         $project->slug = $slug;
+        $project->type_id = $form_data['type_id'];
         $project->save();
         return redirect()->route('admin.projects.index');
     }
@@ -94,7 +97,6 @@ class ProjectController extends Controller
         $project->description = $form_data['description'];
         $project->languages = $form_data['languages'];
         $project->relese_date = $form_data['relese_date'];
-
         if ($request->hasFile('mockup_image')) {
 
             if ($project->mockup_image != null) {

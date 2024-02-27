@@ -23,6 +23,7 @@
                     <th scope="col">slug</th>
                     <th scope="col">languages</th>
                     <th scope="col">relese_date</th>
+                    <th scope="col">type</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,7 @@
                         <td>{{ $project->slug }}</td>
                         <td>{{ $project->languages }}</td>
                         <td>{{ $project->relese_date }}</td>
+                        <td>{{ $project->type ? $project->type->name : 'senza type' }}</td>
                         <td class=" width_ d-flex">
                             <span class="mx-1">
                                 <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}">
