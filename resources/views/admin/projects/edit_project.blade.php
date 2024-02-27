@@ -32,6 +32,16 @@
 
                     </div>
                     <div class="form-group my-2">
+                        <label for="type_id" class="text-white"><strong>selezionare la categoria</strong></label>
+                        <select name="type_id" id="type_id" class="form-control">
+                            <option value="">seleziona categoria</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type->id }}" @selected($type->id == old('type_id', $project->type ? $project->type->id : ''))>{{ $type->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group my-2">
                         <label for="relese_date" class="text-white"><strong>Data di consegna</strong></label>
                         <input type="date" name="relese_date" id="relese_date" placeholder="data di consegna"
                             class="form-control @error('relese_date') is-invalid @enderror"

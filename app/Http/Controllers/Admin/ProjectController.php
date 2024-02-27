@@ -80,7 +80,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit_project', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit_project', compact('project', 'types'));
     }
 
     /**
@@ -108,6 +109,7 @@ class ProjectController extends Controller
         }
         $slug = Str::slug($project->title, '-');
         $project->slug = $slug;
+        $project->type_id = $form_data['type_id'];
         $project->update();
         return redirect()->route('admin.projects.index');
     }
